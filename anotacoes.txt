@@ -1,0 +1,17 @@
+unittest.mock
+biblioteca padrão do Python para isolar seu código de dependências externas
+
+MagicMock
+É um tipo de objeto simulado (mock) que aceita praticamente qualquer operação sem reclamar
+Ele cria atributos e métodos dinamicamente assim que você os chama, e implementa métodos mágicos (como __str__, __iter__, __enter__ para o comando with)
+
+patch
+É o mecanismo que substitui temporariamente um objeto real pelo seu MagicMock durante o teste
+
+python -m pytest tests/test_notificacoes.py 
+
+$env:SMTP_USER = "elizabeth.mds456@gmail.com"  
+$env:SMTP_PASS = "zreq diuv dash tyvq"
+$env:EMAIL_DESTINO = "elizabeth.m.santos9@aluno.senai.br" 
+
+python -m src.notificacoes.sms
