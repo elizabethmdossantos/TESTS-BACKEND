@@ -1,17 +1,44 @@
-unittest.mock
-biblioteca padrão do Python para isolar seu código de dependências externas
 
-MagicMock
-É um tipo de objeto simulado (mock) que aceita praticamente qualquer operação sem reclamar
-Ele cria atributos e métodos dinamicamente assim que você os chama, e implementa métodos mágicos (como __str__, __iter__, __enter__ para o comando with)
+--- 1. FERRAMENTAS DE AMBIENTE (Sistema / Configurações) ----------------
 
-patch
-É o mecanismo que substitui temporariamente um objeto real pelo seu MagicMock durante o teste
+* monkeypatch (Nativo do Pytest)
+  - O que faz: Mexe no ambiente externo ao código (sistema operacional, 
+    configurações do PC, variáveis globais).
+  - Quando usar:
+    - monkeypatch.setenv() -> Criar/mudar uma variável de ambiente.
+    - monkeypatch.delenv() -> Apagar uma variável de ambiente (simular falta dela).
 
-python -m pytest tests/test_notificacoes.py 
+----------------------------------------------------------------------
 
-$env:SMTP_USER = "elizabeth.mds456@gmail.com"  
-$env:SMTP_PASS = "zreq diuv dash tyvq"
-$env:EMAIL_DESTINO = "elizabeth.m.santos9@aluno.senai.br" 
+--- 2. FERRAMENTAS DE CÓDIGO (Isolamento e Espionagem) ---------------
 
-python -m src.notificacoes.sms
+* unittest.mock (Biblioteca padrão do Python)
+  - O que é: O ecossistema oficial do Python para isolar seu código de 
+    dependências externas (APIs, bancos de dados, arquivos).
+
+* MagicMock
+  - O que é: Um "objeto camaleão" (dublê). Ele aceita qualquer operação 
+    sem reclamar ou dar erro.
+  - Comportamento: Cria atributos e métodos dinamicamente assim que você 
+    os chama. Já vem com métodos mágicos prontos (ex: __str__, __iter__, 
+    __enter__ para usar com o comando 'with').
+
+* patch (O Substituidor)
+  - O que faz: É o mecanismo (mão invisível) que vai lá no seu código e 
+    substitui temporariamente um objeto real pelo MagicMock durante o teste.
+
+* mocker (Extensão: pytest-mock)
+  - O que faz: Mexe no código. É apenas um facilitador (wrapper) do 
+    'unittest.mock.patch' feito sob medida para o Pytest. Dispensa o uso 
+    de decoradores complexos e limpa os mocks automaticamente no fim do teste.
+
+----------------------------------------------------------------------
+
+--- 3. RESUMO VISUAL: QUAL USAR? --------------------------------------
+
+Se o teste depende de:
+VARIÁVEL DE AMBIENTE (.env / os.getenv) -------> Use: monkeypatch
+BANCO DE DADOS (Simular salvamento) -----------> Use: mocker / patch
+API EXTERNA (Simular requests / internet) -----> Use: mocker / patch
+ESPIONAR PARÂMETROS (Ver o que foi enviado) ---> Use: MagicMock (assert_called)
+

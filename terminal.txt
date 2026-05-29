@@ -1,0 +1,5 @@
+python -m pytest tests/test_notificacoes.py 
+
+$env:SMTP_USER = "elizabeth.mds456@gmail.com"  
+$env:SMTP_PASS = "zreq diuv dash tyvq"
+$env:EMAIL_DESTINO = "elizabeth.m.santos9@aluno.senai.br" 
